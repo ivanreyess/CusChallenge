@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Optional<ProductDTO> getProductById(int id) {
+    public Optional<ProductDTO> getProductById(Integer id) {
         return Optional.ofNullable(restTemplate.getForObject(resourceUrl + "/{id}", ProductDTO.class, id));
     }
 }

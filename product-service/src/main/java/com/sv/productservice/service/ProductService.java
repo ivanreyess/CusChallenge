@@ -9,6 +9,6 @@ public interface ProductService {
 
     List<ProductDTO> getAll();
 
-    Optional<ProductDTO> getProductById(int id);
+    Optional<ProductDTO> getProductById(Integer id);
 
 }
