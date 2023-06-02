@@ -20,7 +20,7 @@ public class OrderDetail {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private Integer orderId;
+    private Long orderId;
 
     private Integer quantity;
 

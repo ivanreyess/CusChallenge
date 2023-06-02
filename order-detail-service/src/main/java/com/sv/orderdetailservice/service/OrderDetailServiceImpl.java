@@ -34,13 +34,11 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
     @Override
     public OrderDetailDTO update(OrderDetailDTO orderDetailDTO) {
-        OrderDetail savedEntity = orderDetailRepository.save(toEntity(orderDetailDTO));
-        return toDto(savedEntity);
+        return this.save(orderDetailDTO);
     }
 
     @Override
     public Optional<OrderDetailDTO> partialUpdate(OrderDetailDTO orderDetailDTO) {
-
         return orderDetailRepository.findById(orderDetailDTO.id())
                 .map(existingOrderDetail -> {
                     if (orderDetailDTO.orderId() != null) {
@@ -64,7 +62,6 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
     @Override
     public Page<OrderDetailDTO> findAll(int pageNo, int pageSize, String sortBy, String sortDir) {
-
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
