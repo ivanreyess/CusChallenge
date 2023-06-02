@@ -34,7 +34,7 @@ public interface OrderDetailService {
     /**
      * Get all the OrderDetails.
      *
-     * @param pageNo the pagination information.
+     * @param pageNo the pagination information. TODO UPDATE THIS
      * @param pageSize the pagination information.
      * @param sortBy the pagination information.
      * @param sortDir the pagination information.
@@ -56,5 +56,7 @@ public interface OrderDetailService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    boolean exists(Long id);
 
 }

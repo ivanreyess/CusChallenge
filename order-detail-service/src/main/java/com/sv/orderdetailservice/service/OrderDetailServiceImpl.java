@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -61,6 +62,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<OrderDetailDTO> findAll(int pageNo, int pageSize, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -71,6 +73,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<OrderDetailDTO> findOne(Long id) {
         return orderDetailRepository.findById(id).map(OrderDetail::toDto);
     }
@@ -79,5 +82,10 @@ public class OrderDetailServiceImpl implements OrderDetailService{
     public void delete(Long id) {
         log.debug("Request to delete OrderDetaill : {}", id);
         orderDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean exists(Long id) {
+        return orderDetailRepository.existsById(id);
     }
 }
