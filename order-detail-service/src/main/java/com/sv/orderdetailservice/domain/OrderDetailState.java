@@ -1,4 +1,4 @@
-package com.sv.orderdetailservice.model;
+package com.sv.orderdetailservice.domain;
 
 public enum OrderDetailState {
 

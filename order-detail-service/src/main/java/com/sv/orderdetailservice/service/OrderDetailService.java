@@ -1,8 +1,7 @@
 package com.sv.orderdetailservice.service;
 
-import com.sv.orderdetailservice.dto.OrderDetailDTO;
+import com.sv.orderdetailservice.domain.dto.OrderDetailDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 

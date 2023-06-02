@@ -1,7 +1,7 @@
 package com.sv.orderdetailservice.service;
 
-import com.sv.orderdetailservice.dto.OrderDetailDTO;
-import com.sv.orderdetailservice.model.OrderDetail;
+import com.sv.orderdetailservice.domain.dto.OrderDetailDTO;
+import com.sv.orderdetailservice.domain.OrderDetail;
 import com.sv.orderdetailservice.repository.OrderDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.sv.orderdetailservice.model.OrderDetail.toDto;
-import static com.sv.orderdetailservice.model.OrderDetail.toEntity;
+import static com.sv.orderdetailservice.domain.OrderDetail.toDto;
+import static com.sv.orderdetailservice.domain.OrderDetail.toEntity;
 
 @Service
 @Slf4j
@@ -70,6 +70,7 @@ public class OrderDetailServiceImpl implements OrderDetailService{
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<OrderDetail> result = orderDetailRepository.findAll(pageable);
         return result.map(OrderDetail::toDto);
+
     }
 
     @Override

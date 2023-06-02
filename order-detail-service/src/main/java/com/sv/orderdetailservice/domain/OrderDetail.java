@@ -1,6 +1,6 @@
-package com.sv.orderdetailservice.model;
+package com.sv.orderdetailservice.domain;
 
-import com.sv.orderdetailservice.dto.OrderDetailDTO;
+import com.sv.orderdetailservice.domain.dto.OrderDetailDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

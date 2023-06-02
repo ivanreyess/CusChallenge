@@ -1,6 +1,6 @@
 package com.sv.orderdetailservice.repository;
 
-import com.sv.orderdetailservice.model.OrderDetail;
+import com.sv.orderdetailservice.domain.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

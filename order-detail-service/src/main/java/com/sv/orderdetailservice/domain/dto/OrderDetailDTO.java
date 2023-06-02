@@ -1,4 +1,4 @@
-package com.sv.orderdetailservice.dto;
+package com.sv.orderdetailservice.domain.dto;
 
 import lombok.Builder;
 
