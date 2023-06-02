@@ -1,0 +1,25 @@
+eureka:
+  client:
+    enabled: true #this is enabled by default, just putting out here to remember is true by default and @EnableEurekaClient is no longer necessary
+    service-url:
+      default-zone: http://localhost:8761/eureka
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+#          filters:
+#            - StripPrefix=1 #1 removes "/api" and sends "/producto/**"
+        - id: order-detail-service
+          uri: lb://order-detail-service
+          predicates:
+            - Path=/api/order-detail/**
+#          filters:
+#            - StripPrefix=1 # removes "/api" and sends "/item/**"
+server:
+  port: 8090
