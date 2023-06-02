@@ -23,6 +23,12 @@ spring:
             - Path=/api/users/**
           filters:
             - StripPrefix=1 # removes "/api" and sends "/item/**"
+        - id: oauth-service
+          uri: lb://oauth-service
+          predicates:
+              - Path=/api/security/**
+          filters:
+              - StripPrefix=1
 
 server:
   port: 8090
