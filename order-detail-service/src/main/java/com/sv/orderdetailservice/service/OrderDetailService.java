@@ -34,10 +34,10 @@ public interface OrderDetailService {
     /**
      * Get all the OrderDetails.
      *
-     * @param pageNo the pagination information. TODO UPDATE THIS
-     * @param pageSize the pagination information.
-     * @param sortBy the pagination information.
-     * @param sortDir the pagination information.
+     * @param pageNo the page number.
+     * @param pageSize the page size.
+     * @param sortBy property to be sorted.
+     * @param sortDir direction: ASC or DESC of the sorted property.
      * @return the list of entities.
      */
     Page<OrderDetailDTO> findAll(int pageNo, int pageSize, String sortBy, String sortDir);

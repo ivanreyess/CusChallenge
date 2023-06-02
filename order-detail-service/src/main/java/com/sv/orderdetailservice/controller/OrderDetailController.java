@@ -16,7 +16,7 @@ import java.util.Optional;
 import static com.sv.orderdetailservice.config.AppConstants.*;
 
 @RestController
-@RequestMapping("order-details")
+@RequestMapping("/api/order-details")
 @Slf4j
 public class OrderDetailController {
 
@@ -27,8 +27,14 @@ public class OrderDetailController {
         this.orderDetailService = orderDetailService;
     }
 
-
-    @PostMapping({"", "/"})
+    /**
+     * {@code POST  /order-details} : Create a new orderDetail.
+     *
+     * @param orderDetailDTO the orderDetailDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new orderDetailDTO, or with status {@code 400 (Bad Request)} if the orderDetail has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping
     public ResponseEntity<OrderDetailDTO> createOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) throws URISyntaxException {
         log.debug("REST request to save OrderDetail : {}", orderDetailDTO);
         if (orderDetailDTO.id() != null) {
@@ -36,7 +42,7 @@ public class OrderDetailController {
         }
         OrderDetailDTO result = orderDetailService.save(orderDetailDTO);
         return ResponseEntity
-                .created(new URI("/api/order-details/" + result.id()))
+                .created(new URI("/order-details/" + result.id()))
                 .body(result);
     }
 
@@ -64,7 +70,7 @@ public class OrderDetailController {
         }
 
         if (!orderDetailService.exists(id)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         OrderDetailDTO result = orderDetailService.update(orderDetailDTO);
@@ -85,8 +91,8 @@ public class OrderDetailController {
      * or with status {@code 500 (Internal Server Error)} if the orderDetailDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/order-details/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<OrderDetailDTO> partialUpdateOrderDetail(
+    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<OrderDetailDTO> partialUpdateOrderDetail (
             @PathVariable(value = "id", required = false) final Long id,
             @RequestBody OrderDetailDTO orderDetailDTO
     ) throws URISyntaxException {
@@ -99,7 +105,7 @@ public class OrderDetailController {
         }
 
         if (!orderDetailService.exists(id)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         Optional<OrderDetailDTO> result = orderDetailService.partialUpdate(orderDetailDTO);
@@ -108,17 +114,16 @@ public class OrderDetailController {
 
     }
 
-    //TODO UPDATE THIS
     /**
      * {@code GET  /order-details} : get all the orderDetails.
      *
-     * @param pageNo the pagination information.
-     * @param pageSize the pagination information.
-     * @param sortBy the pagination information.
-     * @param sortDir the pagination information.
+     * @param pageNo the page number.
+     * @param pageSize the page size.
+     * @param sortBy property to be sorted.
+     * @param sortDir direction: ASC or DESC of the sorted property.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderDetails in body.
      */
-    @GetMapping("/order-details")
+    @GetMapping
     public ResponseEntity<List<OrderDetailDTO>> getAllOrderDetails(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
@@ -136,7 +141,7 @@ public class OrderDetailController {
      * @param id the id of the orderDetailDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orderDetailDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/order-details/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<OrderDetailDTO> getOrderDetail(@PathVariable Long id) {
         log.debug("REST request to get OrderDetail : {}", id);
         Optional<OrderDetailDTO> orderDetailDTO = orderDetailService.findOne(id);
@@ -149,7 +154,7 @@ public class OrderDetailController {
      * @param id the id of the orderDetailDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/order-details/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrderDetail(@PathVariable Long id) {
         log.debug("REST request to delete OrderDetail : {}", id);
         orderDetailService.delete(id);
