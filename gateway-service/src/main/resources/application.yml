@@ -13,13 +13,16 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/products/**
-#          filters:
-#            - StripPrefix=1 #1 removes "/api" and sends "/producto/**"
         - id: order-detail-service
           uri: lb://order-detail-service
           predicates:
             - Path=/api/order-detail/**
-#          filters:
-#            - StripPrefix=1 # removes "/api" and sends "/item/**"
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1 # removes "/api" and sends "/item/**"
+
 server:
   port: 8090

@@ -1,6 +1,12 @@
 spring:
   application:
-    name: order-service
+    name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
 server:
   port: ${PORT:0}
 eureka:
@@ -9,6 +15,3 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
-logging:
-  level:
-    org.hibernate.SQL : debug
