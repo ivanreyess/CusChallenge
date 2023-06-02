@@ -1,4 +1,8 @@
 package com.sv.orderservice.dto;
 
-public class OrderDTO {
+import lombok.Builder;
+
+@Builder
+public record OrderDTO() {
+
 }
