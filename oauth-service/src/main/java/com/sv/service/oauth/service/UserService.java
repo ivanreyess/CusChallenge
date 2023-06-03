@@ -46,4 +46,14 @@ public class UserService implements IUserService, UserDetailsService {
             throw new UsernameNotFoundException(error);
         }
     }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userFeignClient.findByUserName(userName);
+    }
+
+    @Override
+    public User update(User user, Long id) {
+        return null;
+    }
 }
