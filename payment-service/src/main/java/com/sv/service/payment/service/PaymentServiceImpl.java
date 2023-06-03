@@ -44,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository
                 .findById(paymentDTO.id())
                 .map(existingPayment -> {
-                    if (paymentDTO.paymentStatus() != null) existingPayment.setStatus(paymentDTO.paymentStatus());
+                    if (paymentDTO.status() != null) existingPayment.setStatus(paymentDTO.status());
                     if (paymentDTO.orderId() != null) existingPayment.setOrderId(paymentDTO.orderId());
                     if (paymentDTO.total() != null) existingPayment.setTotal(paymentDTO.total());
                     return existingPayment;

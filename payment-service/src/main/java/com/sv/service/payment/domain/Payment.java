@@ -55,7 +55,7 @@ public class Payment implements Serializable {
     public static PaymentDTO toDto(Payment payment){
         return PaymentDTO.builder()
                 .id(payment.getId())
-                .paymentStatus(payment.getStatus())
+                .status(payment.getStatus())
                 .total(payment.getTotal())
                 .orderId(payment.getOrderId())
                 .build();
@@ -65,7 +65,7 @@ public class Payment implements Serializable {
    public static Payment toEntity(PaymentDTO paymentDTO){
         return Payment.builder()
                 .id(paymentDTO.id())
-                .status(paymentDTO.paymentStatus())
+                .status(paymentDTO.status())
                 .total(paymentDTO.total())
                 .orderId(paymentDTO.orderId())
                 .build();
