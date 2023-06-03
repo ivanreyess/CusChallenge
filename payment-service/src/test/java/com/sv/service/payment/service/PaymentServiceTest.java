@@ -49,14 +49,7 @@ class PaymentServiceTest {
     private static final Double DEFAULT_TOTAL = 1D;
     private static final Double UPDATED_TOTAL = 2D;
 
-    private static final Long DEFAULT_CREATED_DATE = 1L;
-    private static final Long UPDATED_CREATED_DATE = 2L;
 
-    private static final Long DEFAULT_MODIFIED_DATE = 1L;
-    private static final Long UPDATED_MODIFIED_DATE = 2L;
-
-    private static final String ENTITY_API_URL = "/api/payments";
-    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
     @BeforeEach
     void setUp() {

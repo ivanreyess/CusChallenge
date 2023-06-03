@@ -4,10 +4,8 @@ import com.sv.service.payment.dto.PaymentDTO;
 import com.sv.service.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,7 +33,7 @@ public class PaymentController {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new paymentDTO, or with status {@code 400 (Bad Request)} if the payment has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/payments")
+    @PostMapping({"/", ""})
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws URISyntaxException {
         log.debug("REST request to save Payment : {}", paymentDTO);
         if (paymentDTO.id() != null) {
@@ -57,7 +55,7 @@ public class PaymentController {
      * or with status {@code 500 (Internal Server Error)} if the paymentDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/payments/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PaymentDTO> updatePayment(
             @PathVariable(value = "id", required = false) final Long id,
             @RequestBody PaymentDTO paymentDTO
@@ -91,7 +89,7 @@ public class PaymentController {
      * or with status {@code 500 (Internal Server Error)} if the paymentDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/payments/{id}", consumes = {"application/json", "application/merge-patch+json"})
+    @PatchMapping(value = "/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<PaymentDTO> partialUpdatePayment(
             @PathVariable(value = "id", required = false) final Long id,
             @RequestBody PaymentDTO paymentDTO
@@ -119,9 +117,10 @@ public class PaymentController {
      * @param pageNo the page number.
      * @param pageSize the page size.
      * @param sortBy property to be sorted.
-     * @param sortDir direction: ASC or DESC of the sorted property.     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of payments in body.
+     * @param sortDir direction: ASC or DESC of the sorted property.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of payments in body.
      */
-    @GetMapping("/payments")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<PaymentDTO>> getAllPayments( @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                                             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
                                                             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
@@ -137,7 +136,7 @@ public class PaymentController {
      * @param id the id of the paymentDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the paymentDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/payments/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PaymentDTO> getPayment(@PathVariable Long id) {
         log.debug("REST request to get Payment : {}", id);
         Optional<PaymentDTO> paymentDTO = paymentService.findOne(id);
@@ -150,7 +149,7 @@ public class PaymentController {
      * @param id the id of the paymentDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/payments/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
         log.debug("REST request to delete Payment : {}", id);
         paymentService.delete(id);
