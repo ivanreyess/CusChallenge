@@ -81,4 +81,10 @@ public class OrderServiceImpl implements OrderService {
         log.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
     }
+
+    @Override
+    public boolean exists(Long id) {
+        log.debug("Request to check if order exists : {}", id);
+        return orderRepository.existsById(id);
+    }
 }
