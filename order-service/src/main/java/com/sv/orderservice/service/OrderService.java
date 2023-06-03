@@ -33,7 +33,7 @@ public interface OrderService {
     Optional<OrderDTO> partialUpdate(OrderDTO orderDTO);
 
     /**
-     * Get all the orders.
+     * Get all orders.
      *
      * @param pageNo the page number.
      * @param pageSize the page size.
