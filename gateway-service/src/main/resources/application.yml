@@ -26,7 +26,7 @@ spring:
         - id: oauth-service
           uri: lb://oauth-service
           predicates:
-              - Path=/api/security/**
+              - Path=/api/oauth/**
           filters:
               - StripPrefix=1
 

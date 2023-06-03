@@ -8,8 +8,8 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
-@EnableWebFluxSecurity
 @Configuration
+@EnableWebFluxSecurity
 public class SecurityConfig {
 
 
@@ -22,17 +22,17 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain configure(ServerHttpSecurity http) {
         return http.authorizeExchange()
-                .pathMatchers("/api/security/oauth/**").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/productos/listar",
-                        "/api/items/listar",
-                        "/api/usuarios/usuarios",
-                        "/api/items/ver/{id}/cantidad/{cantidad}",
-                        "/api/productos/ver/{id}").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
-                .pathMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/usuarios/**").hasRole("ADMIN")
-                .anyExchange().authenticated()
-                .and().addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .csrf().disable()
+                .pathMatchers("/api/oauth/**").permitAll()
+                .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+////                        "/api/items/listar",
+////                        "/api/usuarios/usuarios",
+////                        "/api/items/ver/{id}/cantidad/{cantidad}",
+//                        "/api/products/{id}").permitAll()
+//                .pathMatchers(HttpMethod.GET, "/api/users/{id}").hasAnyRole("ADMIN", "USER")
+//                .pathMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/usuarios/**").hasRole("ADMIN")
+//                .anyExchange().authenticated()
+//                .and().addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .anyExchange().authenticated().and().csrf().disable()
                 .build();
     }
 

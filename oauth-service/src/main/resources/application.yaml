@@ -1,6 +1,6 @@
 spring:
-  config:
-    import: optional:configserver
+#  config:
+#    import: optional:configserver
   application:
     name: oauth-service
 server:

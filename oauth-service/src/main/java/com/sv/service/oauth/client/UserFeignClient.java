@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("user-service")
 public interface UserFeignClient {
 
-    @GetMapping("api/users/search/findUserName")
-    public User findByUserName(@RequestParam String userName);
+    @GetMapping("/users/search/findUserName")
+    User findByUserName(@RequestParam String userName);
 
 }
