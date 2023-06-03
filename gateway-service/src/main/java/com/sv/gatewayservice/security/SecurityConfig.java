@@ -29,11 +29,11 @@ public class SecurityConfig {
 ////                        "/api/usuarios/usuarios",
 ////                        "/api/items/ver/{id}/cantidad/{cantidad}",
 //                        "/api/products/{id}").permitAll()
-//                .pathMatchers(HttpMethod.GET, "/api/users/{id}").hasAnyRole("ADMIN", "USER")
+                .pathMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("ADMIN", "USER")
 //                .pathMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/usuarios/**").hasRole("ADMIN")
-//                .anyExchange().authenticated()
-//                .and().addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .anyExchange().authenticated().and().csrf().disable()
+                .anyExchange().authenticated()
+                .and().addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .csrf().disable()
                 .build();
     }
 

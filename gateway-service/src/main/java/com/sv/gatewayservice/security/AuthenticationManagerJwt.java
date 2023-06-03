@@ -21,7 +21,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class AuthenticationManagerJwt implements ReactiveAuthenticationManager {
 
 //    @Value("${config.security.oauth.jwt.key}")
-    private final String jwtKey= "AGFDJ434390JF#$#SSAS";
+    private final String jwtKey= "aNdRgUjXn2r5u8x/A?D(G+KbPeShVmYp";
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
