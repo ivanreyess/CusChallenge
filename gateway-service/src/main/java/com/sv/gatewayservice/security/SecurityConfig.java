@@ -23,6 +23,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain configure(ServerHttpSecurity http) {
         return http.authorizeExchange()
                 .pathMatchers("/api/oauth/**").permitAll()
+//                .pathMatchers("/api/orders/**").permitAll()
                 .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
 ////                        "/api/items/listar",
 ////                        "/api/usuarios/usuarios",
