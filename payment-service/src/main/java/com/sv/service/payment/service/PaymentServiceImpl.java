@@ -1,6 +1,7 @@
 package com.sv.service.payment.service;
 
 import com.sv.service.payment.domain.Payment;
+import com.sv.service.payment.domain.PaymentStatus;
 import com.sv.service.payment.dto.PaymentDTO;
 import com.sv.service.payment.repository.PaymentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 import static com.sv.service.payment.domain.Payment.toDto;
 import static com.sv.service.payment.domain.Payment.toEntity;
+import static com.sv.service.payment.domain.PaymentStatus.COMPLETED;
 
 @Service
 @Slf4j
@@ -28,8 +30,13 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentDTO save(PaymentDTO paymentDTO) {
         log.debug("Request to save Payment : {}", paymentDTO);
-        Payment payment = toEntity(paymentDTO);
-        payment = paymentRepository.save(payment);
+        Payment payment = paymentRepository.save(
+                toEntity(PaymentDTO.builder()
+                        .orderId(paymentDTO.orderId())
+                        .status(COMPLETED)
+                        .total(paymentDTO.total())
+                        .build())
+        );
         return toDto(payment);
     }
 

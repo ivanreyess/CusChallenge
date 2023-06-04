@@ -3,6 +3,9 @@ package com.sv.service.payment.domain;
 import com.sv.service.payment.dto.PaymentDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -17,6 +20,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Payment implements Serializable {
 
     @Id
@@ -34,11 +38,13 @@ public class Payment implements Serializable {
     @Column(name = "total")
     private Double total;
 
-    @Column(name = "created_date")
-    private Long createdDate;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    private long createdDate;
 
     @Column(name = "modified_date")
-    private Long modifiedDate;
+    @LastModifiedDate
+    private long modifiedDate;
 
 
     @Override
@@ -58,6 +64,8 @@ public class Payment implements Serializable {
                 .status(payment.getStatus())
                 .total(payment.getTotal())
                 .orderId(payment.getOrderId())
+                .createdDate(payment.getCreatedDate())
+                .modifiedDate(payment.getModifiedDate())
                 .build();
     }
 
@@ -68,6 +76,8 @@ public class Payment implements Serializable {
                 .status(paymentDTO.status())
                 .total(paymentDTO.total())
                 .orderId(paymentDTO.orderId())
+                .createdDate(paymentDTO.createdDate())
+                .modifiedDate(paymentDTO.modifiedDate())
                 .build();
    }
 

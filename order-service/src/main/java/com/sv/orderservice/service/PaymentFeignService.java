@@ -30,8 +30,13 @@ public class PaymentFeignService implements PaymentService {
         return orderDTO.map(order -> createPayment(
                 PaymentDTO.builder()
                         .orderId(order.id())
-                        .total(order.total())
+                        .total(calculateTotal(order))
                         .build()
         )).orElse(PaymentDTO.builder().build());
+    }
+
+    @Override
+    public Double calculateTotal(OrderDTO orderDTO) {
+        return orderDTO.total() - orderDTO.discount() >= 0d ? orderDTO.total() - orderDTO.discount() : 0d;
     }
 }
