@@ -1,7 +1,9 @@
 package com.sv.orderservice.service;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.sv.orderservice.domain.Order;
 import com.sv.orderservice.dto.OrderDTO;
+import com.sv.orderservice.dto.OrderDetailDTO;
 import com.sv.orderservice.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.sv.orderservice.domain.Order.toDto;
@@ -22,16 +25,30 @@ public class OrderServiceImpl implements OrderService {
     private final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final OrderRepository orderRepository;
+    private final OrderDetailFeignService orderDetailService;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderDetailFeignService orderDetailService) {
         this.orderRepository = orderRepository;
+        this.orderDetailService = orderDetailService;
     }
 
 
     @Override
     public OrderDTO save(OrderDTO orderDTO) {
         log.debug("Request to save Order : {}", orderDTO);
-        Order order = toEntity(orderDTO);
+        List<OrderDetailDTO> orders = orderDetailService.findAll();
+        AtomicDouble total = new AtomicDouble(0);
+        orders.forEach(od -> total.addAndGet(od.price() * od.quantity()));
+        Order order = toEntity(OrderDTO.builder()
+                .id(orderDTO.id())
+                .name(orderDTO.name())
+                .lastName(orderDTO.lastName())
+                .total(total.get())
+                .city(orderDTO.city())
+                .country(orderDTO.country())
+                .email(orderDTO.email())
+                .shippingAddress(orderDTO.shippingAddress())
+                .build());
         order = orderRepository.save(order);
         return toDto(order);
     }

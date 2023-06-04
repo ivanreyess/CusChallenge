@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .pathMatchers("/api/payments/**").hasAnyRole("ADMIN", "USER")
                 .pathMatchers("/api/oder-details/**").hasAnyRole("ADMIN", "USER")
+                .pathMatchers("/api/orders/**").hasAnyRole("ADMIN", "USER")
 ////                        "/api/items/listar",
 ////                        "/api/usuarios/usuarios",
 ////                        "/api/items/ver/{id}/cantidad/{cantidad}",
