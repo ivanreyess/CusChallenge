@@ -9,7 +9,7 @@ public interface ProductService {
 
     List<ProductDTO> getAll();
 
-    Optional<ProductDTO> getProductById(Integer id);
+    Optional<ProductDTO> getProductById(Integer id) throws InterruptedException;
 
 
 

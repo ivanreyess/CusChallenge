@@ -60,7 +60,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void getProductById() {
+    void getProductById() throws InterruptedException {
         given(restTemplate.getForObject(resourceUrl + "/{id}", ProductDTO.class, 1)).willReturn(product1);
         Optional<ProductDTO> product = productService.getProductById(1);
         assertFalse(product.isEmpty());
