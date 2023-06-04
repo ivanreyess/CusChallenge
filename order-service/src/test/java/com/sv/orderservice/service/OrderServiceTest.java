@@ -2,6 +2,7 @@ package com.sv.orderservice.service;
 
 import com.sv.orderservice.domain.Order;
 import com.sv.orderservice.dto.OrderDTO;
+import com.sv.orderservice.dto.OrderDetailDTO;
 import com.sv.orderservice.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,9 @@ class OrderServiceTest {
 
     @Mock
     OrderRepository orderRepository;
+
+    @Mock
+    OrderDetailFeignService orderDetailService;
 
     OrderDTO orderDTO1, orderDTO2;
 
@@ -98,6 +102,8 @@ class OrderServiceTest {
     void save() {
         Order order = toEntity(orderDTO1);
         given(orderRepository.save(any(Order.class))).willReturn(order);
+        given(orderDetailService.getTotal()).willReturn(120d);
+
         OrderDTO result = orderService.save(orderDTO1);
         assertNotNull(result);
         assertEquals(1, result.id());
@@ -108,6 +114,7 @@ class OrderServiceTest {
     void update() {
         Order order = toEntity(orderDTO1);
         given(orderRepository.save(any(Order.class))).willReturn(order);
+        given(orderDetailService.getTotal()).willReturn(120d);
         OrderDTO result = orderService.update(orderDTO1);
         assertNotNull(result);
         assertEquals(1, result.id());

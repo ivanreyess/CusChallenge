@@ -8,4 +8,5 @@ public interface OrderDetailService {
 
     List<OrderDetailDTO> findAll();
 
+    Double getTotal();
 }

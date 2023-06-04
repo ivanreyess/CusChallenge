@@ -29,6 +29,8 @@ public class Order {
 
     private Double total;
 
+    private Double discount;
+
     private String city;
 
     private String country;
@@ -53,6 +55,7 @@ public class Order {
                 .name(order.getName())
                 .lastName(order.getLastName())
                 .total(order.getTotal())
+                .discount(order.getDiscount())
                 .city(order.getCountry())
                 .country(order.getCountry())
                 .email(order.getEmail())
@@ -68,6 +71,7 @@ public class Order {
                 .name(orderDTO.name())
                 .lastName(orderDTO.lastName())
                 .total(orderDTO.total())
+                .discount(orderDTO.discount())
                 .city(orderDTO.city())
                 .country(orderDTO.country())
                 .email(orderDTO.email())

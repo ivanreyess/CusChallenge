@@ -36,14 +36,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO save(OrderDTO orderDTO) {
         log.debug("Request to save Order : {}", orderDTO);
-        List<OrderDetailDTO> orders = orderDetailService.findAll();
-        AtomicDouble total = new AtomicDouble(0);
-        orders.forEach(od -> total.addAndGet(od.price() * od.quantity()));
+        Double total = orderDetailService.getTotal();
         Order order = toEntity(OrderDTO.builder()
                 .id(orderDTO.id())
                 .name(orderDTO.name())
                 .lastName(orderDTO.lastName())
-                .total(total.get())
+                .total(total)
+                .discount(orderDTO.discount())
                 .city(orderDTO.city())
                 .country(orderDTO.country())
                 .email(orderDTO.email())
@@ -71,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
                     if (orderDTO.city() != null) existingOrder.setCity(orderDTO.city());
                     if (orderDTO.country() != null) existingOrder.setCountry(orderDTO.country());
                     if (orderDTO.email() != null) existingOrder.setEmail(orderDTO.email());
+                    if (orderDTO.discount() != null) existingOrder.setDiscount(orderDTO.discount());
                     if (orderDTO.shippingAddress() != null) existingOrder.setShippingAddress(orderDTO.shippingAddress());
                     return existingOrder;
                 })
