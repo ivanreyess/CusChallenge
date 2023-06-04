@@ -1,7 +1,9 @@
 package com.sv.orderdetailservice.service;
 
+import com.sv.orderdetailservice.client.ProductClientRest;
 import com.sv.orderdetailservice.domain.dto.OrderDetailDTO;
 import com.sv.orderdetailservice.domain.OrderDetail;
+import com.sv.orderdetailservice.domain.dto.ProductDTO;
 import com.sv.orderdetailservice.repository.OrderDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.sv.orderdetailservice.domain.OrderDetail.toDto;
@@ -22,15 +25,27 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
     private final OrderDetailRepository orderDetailRepository;
 
-    public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository) {
+    private final ProductFeignService productFeignService;
+
+    public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository, ProductFeignService productFeignService) {
         this.orderDetailRepository = orderDetailRepository;
+        this.productFeignService = productFeignService;
     }
 
 
     @Override
     public OrderDetailDTO save(OrderDetailDTO orderDetailDTO) {
-        OrderDetail savedEntity = orderDetailRepository.save(toEntity(orderDetailDTO));
-        return toDto(savedEntity);
+        Optional<ProductDTO> productDTO = productFeignService.getById(orderDetailDTO.productId());
+        Optional<OrderDetailDTO> validatedOrderDetail = productDTO.map(product ->
+                OrderDetailDTO.builder()
+                .id(orderDetailDTO.id())
+                .orderId(orderDetailDTO.orderId())
+                .quantity(orderDetailDTO.quantity())
+                .productId(product.id())
+                .price(product.price())
+                .build());
+        return toDto(validatedOrderDetail.map(o -> orderDetailRepository.save(toEntity(o))).orElse(OrderDetail.builder().build()));
+
     }
 
     @Override

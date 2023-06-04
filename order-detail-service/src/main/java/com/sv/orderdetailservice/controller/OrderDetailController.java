@@ -41,6 +41,7 @@ public class OrderDetailController {
             return ResponseEntity.badRequest().build();
         }
         OrderDetailDTO result = orderDetailService.save(orderDetailDTO);
+        if (result.id() == null)  return ResponseEntity.badRequest().build();
         return ResponseEntity
                 .created(new URI("/order-details/" + result.id()))
                 .body(result);

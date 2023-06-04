@@ -1,6 +1,6 @@
 spring:
   application:
-    name: order-detail-service
+    name: payment-service
 server:
   port: ${PORT:0}
 eureka:

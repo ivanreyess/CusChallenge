@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  eureka-server-service:
+    image: servicio-eureka-server:v1
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - springcloud
+networks:
+  springcloud
