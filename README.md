@@ -58,3 +58,14 @@ docker-compose file to run all microservices.
 
 ### Running  the application
 To run the applciation there is a build.sh file, you need to make it executable in order to run it. Builds all the projects and then deploys them using docker-compose.
+
+### Consuming APIs
+
+* Main entry point is on http://localhost:8090/
+* All microservices are protected except for products on http://localhost:8090/api/products
+* Order details entry point: http://localhost:8090/api/order-details
+* Order entry point: http://localhost:8090/api/orders
+* Payment details entry point: http://localhost:8090/api/payments
+* User entrypoint: http://localhost:8090/api/users/
+
+* Obtain token to make autorize calls to microservices: POST call to http://localhost:8090/api/oauth/token
