@@ -68,4 +68,4 @@ To run the applciation there is a build.sh file, you need to make it executable 
 * Payment details entry point: http://localhost:8090/api/payments
 * User entrypoint: http://localhost:8090/api/users/
 
-* Obtain token to make autorize calls to microservices: POST call to http://localhost:8090/api/oauth/token
+* Obtain token to make autorize calls to microservices, you can use postman to do the call, on Authorization tab, choose Basic Auth(**Username:** frontendapp, **Password:** 12345). On Body tab x-www-form-urlencoded option, **username:** ivan, **password:** 12345, **grant_type:** password : POST call to http://localhost:8090/api/oauth/token
