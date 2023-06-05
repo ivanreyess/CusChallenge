@@ -87,7 +87,15 @@ class OrderDetailControllerTest {
                 .price(DEFAULT_PRICE)
                 .build();
 
-        given(orderDetailService.save(any())).willReturn(orderDetailDto1);
+        OrderDetailDTO orderDetailDtoSaved = OrderDetailDTO.builder()
+                .id(1L)
+                .orderId(DEFAULT_ORDER_ID)
+                .productId(DEFAULT_PRODUCT_ID)
+                .quantity(DEFAULT_QUANTITY)
+                .price(DEFAULT_PRICE)
+                .build();
+
+        given(orderDetailService.save(any())).willReturn(orderDetailDtoSaved);
 
         restOrderDetailMockMvc
                 .perform(

@@ -34,6 +34,10 @@ class OrderDetailServiceTest {
     @Mock
     OrderDetailRepository orderDetailRepository;
 
+    @Mock
+    ProductFeignService productService;
+
+
     OrderDetailDTO orderDetailDto1, orderDetailDto2;
     ProductDTO productDTO1, productDTO2;
 
@@ -78,8 +82,14 @@ class OrderDetailServiceTest {
 
     @Test
     void save() {
+        ProductDTO productDTO = ProductDTO
+                .builder()
+                .id(1)
+                .price(25.50d)
+                .build();
         OrderDetail savedOrderDetail = toEntity(orderDetailDto1);
         given(orderDetailRepository.save(any(OrderDetail.class))).willReturn(savedOrderDetail);
+        given(productService.getById(any())).willReturn(Optional.ofNullable(productDTO));
         OrderDetailDTO result = orderDetailService.save(toDto(savedOrderDetail));
         assertNotNull(result);
         assertEquals(1, result.id());
@@ -88,9 +98,15 @@ class OrderDetailServiceTest {
 
     @Test
     void update() {
+        ProductDTO productDTO = ProductDTO
+                .builder()
+                .id(1)
+                .price(25.50d)
+                .build();
         OrderDetail savedOrderDetail = toEntity(orderDetailDto1);
         savedOrderDetail.setPrice(100.00d);
         given(orderDetailRepository.save(any(OrderDetail.class))).willReturn(savedOrderDetail);
+        given(productService.getById(any())).willReturn(Optional.ofNullable(productDTO));
         OrderDetailDTO result = orderDetailService.update(toDto(savedOrderDetail));
         assertNotNull(result);
         assertEquals(1, result.id());
