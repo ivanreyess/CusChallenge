@@ -43,6 +43,8 @@ public class OrderDetail {
                 .quantity(orderDetailDTO.quantity())
                 .price(orderDetailDTO.price())
                 .productId(orderDetailDTO.productId())
+                .createdDate(orderDetailDTO.createdDate())
+                .modifiedDate(orderDetailDTO.modifiedDate())
                 .build();
     }
 
@@ -53,6 +55,8 @@ public class OrderDetail {
                 .quantity(orderDetail.getQuantity())
                 .price(orderDetail.getPrice())
                 .productId(orderDetail.getProductId())
+                .createdDate(orderDetail.getCreatedDate())
+                .modifiedDate(orderDetail.getModifiedDate())
                 .build();
     }
 
