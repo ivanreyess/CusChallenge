@@ -23,10 +23,10 @@ public class SecurityConfig {
     public SecurityWebFilterChain configure(ServerHttpSecurity http) {
         return http.authorizeExchange()
                 .pathMatchers("/api/oauth/**").permitAll()
-//                .pathMatchers("/api/orders/**").permitAll()
+                .pathMatchers("/api/oder-details/**").permitAll()
                 .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .pathMatchers("/api/payments/**").hasAnyRole("ADMIN", "USER")
-                .pathMatchers("/api/oder-details/**").hasAnyRole("ADMIN", "USER")
+//                .pathMatchers("/api/oder-details/**").hasAnyRole("ADMIN", "USER")
                 .pathMatchers("/api/orders/**").hasAnyRole("ADMIN", "USER")
 ////                        "/api/items/listar",
 ////                        "/api/usuarios/usuarios",
