@@ -3,7 +3,6 @@ package com.sv.productservice.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sv.productservice.dto.ProductDTO;
 import com.sv.productservice.dto.RatingDTO;
-import com.sv.productservice.service.ProductService;
 import com.sv.productservice.service.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,7 +79,7 @@ class ProductControllerTest {
 
         given(productService.getAll()).willReturn(List.of(product1, product2));
 
-        ResultActions perform = mockMvc.perform(get("/products"));
+        ResultActions perform = mockMvc.perform(get("/api/products"));
 
         perform.andDo(print())
                 .andExpect(status().isOk())
@@ -93,7 +92,7 @@ class ProductControllerTest {
     void getById() throws Exception {
         given(productService.getProductById(1)).willReturn(Optional.ofNullable(product1));
 
-        ResultActions perform = mockMvc.perform(get("/products/" + 1));
+        ResultActions perform = mockMvc.perform(get("/api/products/" + 1));
         perform.andDo(print())
                 .andExpect(status().isOk());
 
@@ -103,7 +102,7 @@ class ProductControllerTest {
     void getByIdNotFound() throws Exception {
         given(productService.getProductById(5)).willReturn(Optional.empty());
 
-        ResultActions perform = mockMvc.perform(get("/products/" + 5));
+        ResultActions perform = mockMvc.perform(get("/api/products/" + 5));
         perform.andDo(print())
                 .andExpect(status().isNotFound());
 
